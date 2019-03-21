@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module PUBLIC "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN" "https://checkstyle.org/dtds/configuration_1_3.dtd">
+<module name="Checker">
+
+    <!-- Validate the two file-types which are super-regular to Java-projects. -->
+    <property name="fileExtensions" value="java, properties"/>
+
+    <!-- Let's not check module-info.java-files which don't look like regular Java-files. -->
+    <module name="BeforeExecutionExclusionFileFilter">
+        <property name="fileNamePattern" value="module\-info\.java$"/>
+    </module>
+
+    <!-- Source files should end with a newline so it doesn't break Bash when cating them. -->
+    <module name="NewlineAtEndOfFile"/>
+
+    <!-- Property-files should have the same keys or else they won't work for translations. -->
+    <module name="Translation"/>
+
+    <!-- Check that files don't get too long (default is 2000, which should suffice for most properly designed systems). -->
+    <module name="FileLength"/>
+
+    <!-- No, tabs are not allowed because the display differently in different editors (some
+    have 2 chars, some 3, some 4, some 6 or even 8). -->
+    <module name="FileTabCharacter"/>
+
+    <!-- Disallow trailing whitespace. -->
+    <module name="RegexpSingleline">
+        <property name="format" value="\s+$"/>
+        <property name="minimum" value="0"/>
+        <property name="maximum" value="0"/>
+        <property name="message" value="Line has trailing spaces."/>
+    </module>
+
+    <module name="TreeWalker">
+
+        <!-- Constants should look like THIS_IS_A_CONSTANT. -->
+        <module name="ConstantName"/>
+
+        <!-- Checks that method variables are camel-case, like helloWorld, not hello_world. -->
+        <module name="LocalVariableName"/>
+
+        <!-- Checks that method variables that are final are camel-case, like helloWorld, not hello_world or HELLO_WORLD. -->
+        <module name="LocalFinalVariableName"/>
+
+        <!-- Check that class-members are camel-case. -->
+        <module name="MemberName"/>
+
+        <!-- Check that method-names are camel-case. -->
+        <module name="MethodName"/>
+
+        <!-- Check that package-names contain nothing but dots, underscore and lower-case letters or numbers. -->
+        <module name="PackageName"/>
+
+        <!-- Check that method-parameters are camel-case. -->
+        <module name="ParameterName"/>
+
+        <!-- Check that catch-parameters are camel-case. -->
+        <module name="CatchParameterName"/>
+
+        <!-- Check that interface-params (generics) are upper-case letters. -->
+        <module name="InterfaceTypeParameterName"/>
+
+        <!-- Check that method-params (generics) are upper-case letters. -->
+        <module name="MethodTypeParameterName"/>
+
+        <!-- Check that lambda parameters are camel-case. -->
+        <module name="LambdaParameterName"/>
+
+        <!-- Checks that regular non-final statics are camel-case. -->
+        <module name="StaticVariableName"/>
+
+        <!-- Check that types start with an upper-case letter. -->
+        <module name="TypeName"/>
+
+        <!-- *-imports are not allowed because when refactoring with search and replace or searching for types pure text this
+        can cause trouble. -->
+        <module name="AvoidStarImport"/>
+
+        <!-- Internal JVM-stuff is absolutely not allowed! -->
+        <module name="IllegalImport">
+            <property name="illegalPkgs" value="sun, com.sun, ibm, com.ibm"/>
+        </module>
+
+        <!-- Don't import stuff that's autoimported (like java.lang). -->
+        <module name="RedundantImport"/>
+
+        <!-- Don't have unused imports in your java-files (in javadoc that's ok though because we don't want compile-time dependencies). -->
+        <module name="UnusedImports">
+            <property name="processJavadoc" value="false"/>
+        </module>
+
+        <!-- Allow 140 characters in width, but not more. It hinders readability for developers which work on a small laptop as they'll have
+        to scroll horizontally. -->
+        <module name="LineLength">
+            <property name="max" value="140"/>
+        </module>
+
+        <!-- Modifier-ordering should follow sun-style, i.e. private static final, not private final static. It causes developers to actively
+        read to understand when it doesn't follow the regular pattern. -->
+        <module name="ModifierOrder"/>
+
+        <!-- Disallow modifiers that don't make a difference, like public on an interface-method (although counter-intuitive, according to
+        the JLS https://docs.oracle.com/javase/specs/jls/se7/html/jls-14.html#jls-14.20.3 the final-modifier is redundant for
+        try-with-resources, they are implicitly final, but we allow them. -->
+        <module name="RedundantModifier">
+            <property name="tokens" value="METHOD_DEF, VARIABLE_DEF, ANNOTATION_FIELD_DEF, INTERFACE_DEF, CTOR_DEF, CLASS_DEF, ENUM_DEF"/>
+        </module>
+
+        <!-- Checks that constants use L, not l, because l can look like 1 (one). -->
+        <module name="UpperEll"/>
+
+        <!-- Disallow TODO or FIXME in code. -->
+        <!-- Although in a perfect world all todos or fixmes should be fixed before a build, we disable this because it's impractical.
+        <module name="TodoComment">
+          <property name="format" value="(TODO)|(FIXME)"/>
+        </module-->
+
+        <!-- Parameters etc should be final, a handed variable shouldn't change because it follows the "least-surprise"-principle (and not
+        even that is an absolute guarantee, a List or something like that can be modified anyway). -->
+        <module name="FinalParameters"/>
+
+        <!-- Arrays are defined on the type, not the variable name. -->
+        <module name="ArrayTypeStyle"/>
+
+        <!-- Utility-classes (those that only have private constructors and static methods) should be final. -->
+        <module name="FinalClass"/>
+
+        <!-- Utility-classes (those that only have static methods) must not be instantiated. -->
+        <module name="HideUtilityClassConstructor"/>
+
+        <!-- An interface describes a type, it's not a Constants-class. An interface should define implementable methods. -->
+        <module name="InterfaceIsType"/>
+
+        <!-- A class should not make it's members modifiable or accessible. Only constants or annotated stuff is allowed (for CDI or EJB). -->
+        <!-- Although not a bad idea, this could be unnecessarily nit-picky when it comes to EJB-inheritance or CDI-inheritance. Disabled
+        for now.
+        <module name="VisibilityModifier"/-->
+
+        <!-- Iterators with omitted statements should be empty, not whitespaced. -->
+        <module name="EmptyForIteratorPad"/>
+
+        <!-- Angle-brackets should not be contain whitespace at front or end. -->
+        <module name="GenericWhitespace"/>
+
+        <!-- Checks the padding between the identifier of a method definition, constructor definition, method call, or constructor invocation;
+        and the left parenthesis of the parameter list. That is, if the identifier and left parenthesis are on the same line, checks whether a
+        space is required immediately after the identifier or such a space is forbidden. -->
+        <module name="MethodParamPad"/>
+
+        <!-- A whitespace after a variable we don't like, i++ is good, i ++ is not. -->
+        <module name="NoWhitespaceAfter"/>
+
+        <!-- A whitespace before a variable we don't like either, ++i is good, ++ i is not. -->
+        <module name="NoWhitespaceBefore"/>
+
+        <!-- WHen a statement wraps, the operator (such as &&) should be on the next line, not at the end of the previous. Aids readability. -->
+        <module name="OperatorWrap"/>
+
+        <!-- No padding on paranthesis. -->
+        <module name="ParenPad"/>
+
+        <!-- Typecast-paranthesis should not be padded. -->
+        <module name="TypecastParenPad"/>
+
+        <!-- After a comma or an if there must be a whitespace. -->
+        <module name="WhitespaceAfter"/>
+
+        <!-- This is a large one, but in general to check whether a whitespace around assignments (i.e int i = 1;) should be mandatory. -->
+        <module name="WhitespaceAround"/>
+
+        <!-- A block without purpose is not allowed, as it instinctively implies for a developer that there was a condition before. -->
+        <module name="AvoidNestedBlocks"/>
+
+        <!-- Empty statements (i.e. double semicolons) are not ok. -->
+        <module name="EmptyStatement"/>
+
+        <!-- The methods equals and hashCode come in pairs, always. -->
+        <module name="EqualsHashCode"/>
+
+        <!-- A switch-statement must have a fall-back default. -->
+        <module name="MissingSwitchDefault"/>
+
+        <!-- Magic-numbers are nice and all, but except the developer that entered them nobody else knows what they mean. No good. -->
+        <module name="MagicNumber">
+            <!-- In annotations there is usually a JavaDoc that tells us what the number means. -->
+            <property name="ignoreAnnotation" value="true"/>
+            <!-- Let's assume that a number on a class field has a variable preceding it that tells us what the number means. -->
+            <property name="ignoreFieldDeclaration" value="true"/>
+        </module>
+
+        <!-- Prohibit assignment in subexpressions as they can easily be missed. -->
+        <module name="InnerAssignment"/>
+
+        <!-- Long and difficult boolean-expressions are difficult to decode in your head. Prevent them. -->
+        <module name="SimplifyBooleanExpression"/>
+
+        <!-- Long and difficult boolean-expressions in a return-statement are equally difficult to parse in your head. Disallow that, too. -->
+        <module name="SimplifyBooleanReturn"/>
+
+        <!-- All blocks need braces, we don't want OpenSSL-style mega-fallouts because something was overread. -->
+        <module name="NeedBraces"/>
+
+        <!-- Left curlies are at eol. -->
+        <module name="LeftCurly"/>
+
+        <!-- Right curlies stand alone. -->
+        <module name="RightCurly"/>
+
+        <!-- Empty blocks are not generally allowed but if there is a comment there, we are ok. -->
+        <module name="EmptyBlock">
+            <property name="option" value="text"/>
+        </module>
+
+        <!-- Empty catch blocks are not allowed unless the exception is "expected" or "ignored". -->
+        <module name="EmptyCatchBlock">
+            <property name="exceptionVariableName" value="expected|ignored"/>
+        </module>
+
+        <!-- Don't allow fields to be modified unless they are in constructors or setters so they can't be confused. -->
+        <module name="HiddenField">
+            <property name="ignoreSetter" value="true"/>
+            <property name="ignoreConstructorParameter" value="true"/>
+            <property name="setterCanReturnItsClass" value="true"/>
+        </module>
+
+        <!-- Whatever parameter or variable that can be final, should be final. -->
+        <module name="FinalLocalVariable"/>
+
+        <!-- Public variables must have an explanation what they mean or are used for. -->
+        <module name="JavadocVariable">
+            <property name="scope" value="public"/>
+        </module>
+
+        <!-- Javadoc should be should be correct (tags and all) so it can be formatted correctly by it's tools. -->
+        <module name="JavadocStyle"/>
+
+        <!-- Every public type must have an explication what it's used for. -->
+        <module name="JavadocType">
+            <property name="scope" value="public"/>
+        </module>
+
+        <!-- Public methods must have Javadoc. -->
+        <module name="JavadocMethod">
+            <property name="scope" value="public"/>
+            <property name="allowMissingPropertyJavadoc" value="true"/>
+        </module>
+
+    </module>
+
+</module>
