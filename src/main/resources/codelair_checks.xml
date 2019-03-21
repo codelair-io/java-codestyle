@@ -229,22 +229,6 @@
     <!-- If it exists, Javadoc should be should be correct (tags and all) so it can be formatted correctly by it's tools. -->
     <module name="JavadocStyle"/>
 
-    <!-- Public variables must have an explanation what they mean or are used for. -->
-    <module name="JavadocVariable">
-      <property name="scope" value="public"/>
-    </module>
-
-    <!-- Every public type must have an explication what it's used for. -->
-    <module name="JavadocType">
-      <property name="scope" value="public"/>
-    </module>
-
-    <!-- Public methods must have Javadoc. -->
-    <module name="JavadocMethod">
-      <property name="scope" value="public"/>
-      <property name="allowMissingPropertyJavadoc" value="true"/>
-    </module>
-
   </module>
 
 </module>
