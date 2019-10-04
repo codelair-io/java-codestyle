@@ -12,7 +12,7 @@ In your Maven project, add:
 <plugin>
   <groupId>org.apache.maven.plugins</groupId>
   <artifactId>maven-checkstyle-plugin</artifactId>
-  <version>3.0.0</version>
+  <version>3.1.0</version>
   <executions>
     <execution>
       <goals>
@@ -64,7 +64,7 @@ which do not enforce Javadoc, also following config-section to the plugin:
 * modifier-ordering should follow sun-conventions (private static final, not private final static).
 * No switch without default.
 * No trailing white-space.
-* No *-imports.
+* No wildcard-imports.
 * No imports to JVM-internal classes.
 * Magic-numbers must be constants.
 * Equals comes with hashCode.
