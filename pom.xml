@@ -7,7 +7,7 @@
 
   <groupId>io.codelair.quality</groupId>
   <artifactId>checkstyle</artifactId>
-  <version>1.0.1</version>
+  <version>1.0.2</version>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -16,11 +16,11 @@
   <distributionManagement>
     <repository>
       <id>internal-oss-local</id>
-      <url>https://dev.redbridge.se/artifactory/internal-oss-local</url>
+      <url>https://dl.redbridge.se/artifactory/internal-oss-local</url>
     </repository>
     <snapshotRepository>
       <id>internal-oss-local</id>
-      <url>https://dev.redbridge.se/artifactory/internal-oss-local</url>
+      <url>https://dl.redbridge.se/artifactory/internal-oss-local</url>
     </snapshotRepository>
   </distributionManagement>
 
